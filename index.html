@@ -5,66 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Today’s Best Offers</title>
     
-
 <style>
     body {
         margin: 0;
         font-family: "Poppins", sans-serif;
-
-
+        background: #f9f9f9;
     }
 
     /* HEADER */
     header {
-        width: auto;
+        width: 100%;
         padding: 20px;
-        background: #003153;
+        background: linear-gradient(90deg, #ff512f, #dd2476);
+        color: white;
         text-align: left;
         font-size: 28px;
         font-weight: 700;
-        /*box-shadow: 0 2px 8px rgba(0,0,0,0.1);*/
         position: sticky;
         top: 0;
         z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     /* LAYOUT WRAPPER */
     .layout {
         display: flex;
-        width: auto;
+        width: 100%;
         height: auto;
-        zoom: 80%;
-	box-sizing: border-box;
-
+        zoom: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        gap: 10px;
     }
 
     /* LEFT + RIGHT SIDEBARS */
-    .sidebar {
+    .sidebar, .rightbar {
         width: 15%;
-        min-width: 180px;
+        min-width: 150px;
         background: #fff;
-        padding: 20px 12px;
-        border-right: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 12px;
         overflow-y: auto;
-
+        max-height: calc(100vh - 90px);
     }
 
-    .rightbar {
-        width: 15%;
-        min-width: 180px;
-        background: #fff;
-        padding: 20px 12px;
-        border-left: 1px solid #ddd;
-        overflow-y: auto;
-    }
+    .rightbar { border-left: 1px solid #ddd; }
+    .sidebar { border-right: 1px solid #ddd; }
 
     /* PILL BUTTONS */
     .pill {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 10px 16px;
-        margin: 10px 0;
+        padding: 8px 14px;
+        margin: 6px 0;
         border-radius: 40px;
         background: white;
         cursor: pointer;
@@ -88,9 +82,10 @@
     .content {
         width: 70%;
         padding: 20px;
-
- 	border-radius: 20px; /* Makes corners rounded */
-  	overflow: hidden; 
+        border-radius: 20px; 
+        overflow: hidden; 
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
 
     /* SEARCH BAR */
@@ -112,35 +107,38 @@
     /* OFFER GRID */
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 20px;
     }
 
-   .card {
-   	display: inline-block;
-        margin-top: 6px;
-        padding: 7px 12px;
-        font-size: 13px;
+    .card {
+        background: white;
         border-radius: 20px;
+        overflow: hidden;
         text-decoration: none;
         color: black;
-        background: white;
         transition: 0.3s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        display: flex;
+        flex-direction: column;
     }
 
-.card :hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
 
     .card img {
         width: 100%;
-        height: 180px;
+        height: 150px;
         object-fit: cover;
     }
 
     .card-body {
         padding: 12px 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .title {
@@ -161,18 +159,25 @@
     }
 
     .btn {
-        padding: 10px 14px;
-        background: #2ecc71;
+        padding: 8px 12px;
+        background: #ff512f;
         color: #fff;
         border-radius: 8px;
         text-decoration: none;
         display: inline-block;
-        margin-top: 10px;
+        margin-top: auto;
+        text-align: center;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #dd2476;
     }
 
     .pagination {
         text-align: center;
-        padding: 20px;
+        padding: 20px 0;
     }
 
     .pagination button {
@@ -183,19 +188,30 @@
         background: #333;
         color: #fff;
         cursor: pointer;
-
     }
 
+    /* RESPONSIVE */
+    @media (max-width: 1024px){
+        .layout { flex-direction: column; }
+        .sidebar, .rightbar, .content { width: 100%; max-width: 100%; }
+        .sidebar, .rightbar { max-height: 300px; overflow-x: auto; margin-bottom: 10px; }
+        #searchInput { width: 95%; }
+        .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    }
+
+    @media (max-width: 600px){
+        header { font-size: 22px; padding: 16px; text-align: center; }
+        .pill { padding: 6px 10px; font-size: 14px; gap: 6px; }
+        .card img { height: 120px; }
+        .btn { font-size: 14px; padding: 6px 10px; }
+        .grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+    }
 </style>
 </head>
 
 <body>
 
-<header style = "color:white">🔥 Today’s Best Offers
-
-
-</header>
-
+<header>🔥 Today’s Best Offers</header>
 
 <div class="layout">
 
@@ -222,68 +238,38 @@
         <a class="pill" href="#"><img src="https://logo.clearbit.com/decathlon.in">Decathlon</a>
         <a class="pill" href="#"><img src="https://logo.clearbit.com/croma.com">Croma</a>
         <a class="pill" href="#"><img src="https://logo.clearbit.com/sephora.com">Sephora</a>
-        <a class="pill" href="#" ><img src="https://logo.clearbit.com/paytm.com">Paytm</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/amazonpay.in">AmazonPay</a>
-        <a class="pill" href="#" ><img src="https://logo.clearbit.com/olx.in">OLX</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/caratlane.com">CaratLane</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/shopclues.com">ShopClues</a>
-      </div>
+    </div>
 
     <!-- CENTER CONTENT -->
     <div class="content">
-
-        <!-- SEARCH BOX -->
         <div class="searchBox">
             <input type="text" id="searchInput" placeholder="Search offers...">
         </div>
-
-        <div id="grid" class="grid">
-            <!-- Offers will load here -->
-        </div>
-
+        <div id="grid" class="grid"></div>
         <div class="pagination">
             <button onclick="prevPage()">Prev</button>
             <span id="pageNumber"></span>
             <button onclick="nextPage()">Next</button>
         </div>
-
     </div>
 
     <!-- RIGHT SIDEBAR -->
-    
     <div class="rightbar">
-
-<h3>Food, Travel & Finance</h3>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/swiggy.com">Swiggy</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/zomato.com">Zomato</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/ubereats.com">UberEats</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/dominos.co.in">Domino’s</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/foodpanda.com">FoodPanda</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/makemytrip.com">MakeMyTrip</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/booking.com">Booking.com</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/goibibo.com">Goibibo</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/yatra.com">Yatra</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/irctc.co.in">IRCTC</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/redbus.in">RedBus</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/expedia.co.in">Expedia</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/agoda.com">Agoda</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/policybazaar.com">PolicyBazaar</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/bankbazaar.com">BankBazaar</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/hdfcbank.com">HDFC Bank</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/sbicard.com">SBI Card</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/icicibank.com">ICICI Bank</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/axisbank.com">Axis Bank</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/moneycontrol.com">MoneyControl</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/tripadvisor.com">TripAdvisor</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/bookmyshow.com">BookMyShow</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/youtube.com">YouTube</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/instagram.com">Instagram</a>
-<a class="pill" href="#"><img src="https://logo.clearbit.com/wikipedia.org">Wikipedia</a>
+        <h3>Food, Travel & Finance</h3>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/swiggy.com">Swiggy</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/zomato.com">Zomato</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/ubereats.com">UberEats</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/dominos.co.in">Domino’s</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/foodpanda.com">FoodPanda</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/makemytrip.com">MakeMyTrip</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/booking.com">Booking.com</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/goibibo.com">Goibibo</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/yatra.com">Yatra</a>
+        <a class="pill" href="#"><img src="https://logo.clearbit.com/irctc.co.in">IRCTC</a>
     </div>
 
 </div>
 
-<!-- SCRIPT SECTION -->
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbzQmZMbBQc6ChYGmhcLNeQmsSmYX1U4XBXOTc0vcrLAmXLa3XAWdnOvZowmCzW0tNAZjg/exec";
 
@@ -292,31 +278,38 @@
     const itemsPerPage = 16;
 
     async function loadOffers() {
-        const res = await fetch(API_URL);
-        offers = await res.json();
+        try {
+            const res = await fetch(API_URL);
+            offers = await res.json();
+        } catch(e) {
+            console.error("Error fetching offers, using sample data.", e);
+            offers = Array.from({length:16}).map((_,i)=>({
+                title: `Sample Deal ${i+1}`,
+                price: `₹${499 + i*50}`,
+                discount: `${10 + (i*5)}% OFF`,
+                image: `https://picsum.photos/seed/${i}/300/200`,
+                link:'#'
+            }));
+        }
         render();
     }
 
     function render() {
-        let filtered = [...offers];
-
         const search = document.getElementById("searchInput").value.toLowerCase();
-        if (search) {
-            filtered = filtered.filter(x =>
-                x.title.toLowerCase().includes(search)
-            );
+        let filtered = offers;
+        if(search){
+            filtered = offers.filter(o=> o.title.toLowerCase().includes(search));
         }
+        const start = (currentPage-1)*itemsPerPage;
+        const paginated = filtered.slice(start, start+itemsPerPage);
 
-        const start = (currentPage - 1) * itemsPerPage;
-        const paginated = filtered.slice(start, start + itemsPerPage);
-
-        document.getElementById("grid").innerHTML = paginated.map(item => `
+        document.getElementById("grid").innerHTML = paginated.map(item=>`
             <div class="card">
                 <img src="${item.image}" />
                 <div class="card-body">
                     <div class="title">${item.title}</div>
-                    <div class="price">₹${item.price}</div>
-                    <div class="discount">${item.discount}% OFF</div>
+                    <div class="price">${item.price}</div>
+                    <div class="discount">${item.discount}</div>
                     <a class="btn" href="${item.link}" target="_blank">Grab Deal</a>
                 </div>
             </div>
@@ -326,10 +319,10 @@
     }
 
     function nextPage() { currentPage++; render(); }
-    function prevPage() { if (currentPage > 1) currentPage--; render(); }
+    function prevPage() { if(currentPage>1) currentPage--; render(); }
 
-    document.getElementById("searchInput").addEventListener("input", () => {
-        currentPage = 1;
+    document.getElementById("searchInput").addEventListener("input",()=>{
+        currentPage=1;
         render();
     });
 
