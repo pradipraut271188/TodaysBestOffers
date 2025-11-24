@@ -10,44 +10,45 @@
         margin: 0;
         font-family: "Poppins", sans-serif;
         background: #f5f5f5;
+	overflow-x: hidden;
     }
 
     header {
         width: auto;
         padding: 20px;
-        background: linear-gradient(90deg, #ff6a00, #ee0979);
+        background: linear-gradient(90deg, black, #ee0979);
         color: white;
         font-size: 28px;
         font-weight: 700;
         position: sticky;
         top: 0;
         z-index: 1000;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     .layout {
-        display: flex;
         width: 100%;
         min-height: 100vh;
         padding: 10px;
-        gap: 10px;
         box-sizing: border-box;
-        flex-wrap: nowrap;
     }
 
-    .sidebar, .rightbar {
-        width: 15%;
-        min-width: 180px;
-        background: #fff;
-        padding: 20px 12px;
-        border-radius: 16px;
-        overflow-y: auto;
-        max-height: calc(100vh - 80px);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        font-size: 13px;
+    /* BOTTOM BAR (merged both sidebars) */
+    .bottom-bar {
+    width: 100%;
+    background: #fff;
+    padding: 12px 10px;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    box-sizing: border-box;
     }
 
     .pill {
@@ -55,7 +56,6 @@
         align-items: center;
         gap: 10px;
         padding: 10px 16px;
-        margin: 10px 0;
         border-radius: 40px;
         background: white;
         cursor: pointer;
@@ -63,12 +63,13 @@
         transition: 0.3s;
         text-decoration: none;
         color: black;
-        font-size: 12px;
+        font-size: 15px;
+        border: 1px solid #ddd;
+ 	max-width: 140px;
+        white-space: nowrap;
     }
 
-    .pill:hover {
-        background: #e4e4e4;
-    }
+    .pill:hover { background: #e4e4e4; }
 
     .pill img {
         width: 24px;
@@ -77,28 +78,25 @@
     }
 
     .content {
-        width: 70%;
-        min-width: 250px;
+        width: 100%;
         padding: 20px;
         border-radius: 20px;
         background: #fff;
         box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-        flex-grow: 1;
     }
 
-    .searchBox {
-        width: 100%;
+    .filters {
         display: flex;
-        justify-content: center;
+        gap: 10px;
         margin-bottom: 20px;
     }
 
-    #searchInput {
-        width: 90%;
-        padding: 12px 18px;
+    select, input {
+        padding: 12px 16px;
         border-radius: 40px;
         border: 1px solid #ccc;
-        font-size: 16px;
+        font-size: 15px;
+        width: 100%;
     }
 
     .grid {
@@ -131,109 +129,136 @@
         loading: lazy;
     }
 
-    .card-body {
-        padding: 12px 15px;
-    }
+    .card-body { padding: 12px 15px; }
 
-    .title {
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 6px;
-    }
-
-    .price {
-        font-size: 12px;
-        font-weight: 600;
-        color: #2ecc71;
-    }
-
-    .discount {
-        color: #e74c3c;
-        font-size: 14px;
-    }
+    .title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .price { font-size: 12px; font-weight: 600; color: #2ecc71; }
+    .discount { color: #e74c3c; font-size: 14px; }
 
     .btn {
-        padding: 10px 0px;
+        padding: 10px 0;
         background: linear-gradient(90deg, #ff6a00, #ee0979);
         color: #fff;
         border-radius: 8px;
-        text-decoration: none;
-        display: inline-block;
+        text-align: center;
         margin-top: 10px;
-        width: 100%;
-        text-align: center;
+        display: block;
+ 	text-decoration: none !important;
     }
+.btn:hover {
+    text-decoration: none !important;
+}
 
-    .pagination {
-        text-align: center;
-        padding: 20px;
-    }
-
+    .pagination { text-align: center; padding: 20px; }
     .pagination button {
         padding: 8px 14px;
-        margin: 0 4px;
-        border: none;
         border-radius: 8px;
         background: #333;
         color: #fff;
+        border: none;
         cursor: pointer;
+        margin: 0 5px;
     }
 
     #loading {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 300px;
-        font-size: 18px;
-        color: #555;
+        height: 250px;
         flex-direction: column;
         gap: 10px;
+        font-size: 18px;
     }
 
     .spinner {
-        border: 5px solid #f3f3f3;
+        border: 5px solid #ddd;
         border-top: 5px solid #3498db;
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         animation: spin 1s linear infinite;
     }
 
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    @media (max-width: 1024px) {
-        .layout { flex-direction: column; gap: 10px; }
+.top-ticker-container {
+    width: 100%;
+    background: red;
+    overflow: hidden;            /* keeps movement inside box */
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+text-align: center;
+}
 
-        .content { width: 100% !important; order: 1; }
+.top-ticker {
+    display: inline-block;
+    white-space: nowrap;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    animation: bounce 10s ease-in-out infinite;
+}
 
-        .sidebar, .rightbar { display: none; }
+/* Back and forth animation */
+@keyframes bounce {
+    0%   { transform: translateX(0); }
+    50%  { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
 
-        #mergedPanel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            background: #fff;
-            padding: 15px;
-            border-radius: 16px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 100%;
-            order: 2;
-        }
+/* ---------- FULL WIDTH SLIDER ---------- */
+.full-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 20px 0;
+}
 
-        #mergedPanel .pill {
-            flex: 1 1 calc(50% - 10px);
-            margin: 0;
-        }
+.slides-wrapper {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    width: 100%;
+}
 
-        #searchInput { width: 100%; }
+.slide-item {
+    min-width: 100%;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .grid {
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        }
-    }
+.slide-item img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Navigation buttons */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+.nav-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
 </style>
 </head>
 
@@ -243,53 +268,57 @@
 
 <div class="layout">
 
-    <div class="sidebar">
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/amazon.in">Amazon</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/flipkart.com">Flipkart</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/meesho.com">Meesho</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/myntra.com">Myntra</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/snapdeal.com">Snapdeal</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/tatacliq.com">TataCliq</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/ajio.com">Ajio</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/nykaa.com">Nykaa</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/purplle.com">Purplle</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/bigbasket.com">BigBasket</a>
+<div class="content">
+
+
+    <!-- 🔍 Search & Category Filter -->
+    <div class="filters">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
+        </select>
+    </div>
+<div class="top-ticker-container">
+    <div class="top-ticker">
+         <center>Big Sale Live Now! | Amazon • Flipkart • Meesho • Myntra • Ajio • Croma • More Deals Updating Every Hour!</center>
+    </div>
+</div>
+<br>
+<!-- ----------- FULL WIDTH SLIDER SECTION ----------- -->
+<div class="full-slider">
+    <button class="nav-btn prev-btn">⟨</button>
+
+    <div class="slides-wrapper" id="sheetGallery"></div>
+
+    <button class="nav-btn next-btn">⟩</button>
+</div>
+<br>
+
+    <div id="loading">
+        <div class="spinner"></div>
+        Loading offers...
     </div>
 
-    <div class="content">
-        <div class="searchBox">
-            <input type="text" id="searchInput" placeholder="Search offers...">
-        </div>
+    <div id="grid" class="grid" style="display:none;"></div>
 
-        <div id="loading">
-            <div class="spinner"></div>
-            Loading offers...
-        </div>
-
-        <div id="grid" class="grid" style="display:none;"></div>
-
-        <div class="pagination">
-            <button onclick="prevPage()">Prev</button>
-            <span id="pageNumber"></span>
-            <button onclick="nextPage()">Next</button>
-        </div>
-    </div>
-
-    <div class="rightbar">
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/swiggy.com">Swiggy</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/zomato.com">Zomato</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/ubereats.com">UberEats</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/dominos.co.in">Domino’s</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/foodpanda.com">FoodPanda</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/makemytrip.com">MakeMyTrip</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/booking.com">Booking.com</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/goibibo.com">Goibibo</a>
-        <a class="pill" href="#"><img src="https://logo.clearbit.com/yatra.com">Yatra</a>
+    <div class="pagination">
+        <button onclick="prevPage()">Prev</button>
+        <span id="pageNumber"></span>
+        <button onclick="nextPage()">Next</button>
     </div>
 
 </div>
 
-<div id="mergedPanel" style="display:none;"></div>
+<!-- ⭐ Bottom Combined Bar -->
+<div class="bottom-bar">
+    <a class="pill"><img src="https://logo.clearbit.com/amazon.in">Amazon</a>
+    <a class="pill"><img src="https://logo.clearbit.com/flipkart.com">Flipkart</a>
+    <a class="pill"><img src="https://logo.clearbit.com/meesho.com">Meesho</a>
+    <a class="pill"><img src="https://logo.clearbit.com/swiggy.com">Swiggy</a>
+    <a class="pill"><img src="https://logo.clearbit.com/zomato.com">Zomato</a>
+</div>
+
+</div>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbzQmZMbBQc6ChYGmhcLNeQmsSmYX1U4XBXOTc0vcrLAmXLa3XAWdnOvZowmCzW0tNAZjg/exec";
@@ -298,90 +327,157 @@ let offers = [];
 let currentPage = 1;
 const itemsPerPage = 8;
 
-/* 🔥 ALWAYS FORCE REFRESH ON PAGE LOAD */
-window.addEventListener("load", async () => {
-    console.log("🔄 Force Refresh Enabled");
-    await loadOffers(true);  
-});
+window.onload = async () => loadOffers();
 
-/* MAIN LOADER */
-async function loadOffers(forceRefresh = false) {
+/* Fetch Offers */
+async function loadOffers() {
     document.getElementById("loading").style.display = "flex";
-    document.getElementById("grid").style.display = "none";
 
-    if (forceRefresh) {
-        localStorage.removeItem("offers_cache");
-        console.log("🗑 Cache cleared for fresh data");
-    }
+    const res = await fetch(API_URL);
+    offers = await res.json();
 
-    try {
-        const res = await fetch(API_URL);
-        offers = await res.json();
-        localStorage.setItem("offers_cache", JSON.stringify(offers));
-        localStorage.setItem("offers_cache_time", Date.now());
-    } catch (e) {
-        console.error("❌ Error fetching:", e);
-    }
+    buildCategoryList();
+    render();
 
     document.getElementById("loading").style.display = "none";
     document.getElementById("grid").style.display = "grid";
-    render();
 }
 
+/* Build Category Dropdown */
+function buildCategoryList() {
+    const select = document.getElementById("categoryFilter");
+    const categories = [...new Set(offers.map(x => x.category))];
+
+    categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+    });
+}
+
+/* Render Cards */
 function render() {
-    let filtered = [...offers];
     const search = document.getElementById("searchInput").value.toLowerCase();
+    const selectedCat = document.getElementById("categoryFilter").value;
+
+    let filtered = offers;
 
     if (search) {
-        filtered = filtered.filter(x => x.title.toLowerCase().includes(search));
+        filtered = filtered.filter(i => i.title.toLowerCase().includes(search));
+    }
+
+    if (selectedCat !== "all") {
+        filtered = filtered.filter(i => i.category === selectedCat);
     }
 
     const start = (currentPage - 1) * itemsPerPage;
     const paginated = filtered.slice(start, start + itemsPerPage);
 
-    document.getElementById("grid").innerHTML = paginated.map(item => `
+    document.getElementById("grid").innerHTML =
+        paginated.map(item => `
         <div class="card">
-            <img src="${item.image}" loading="lazy"/>
+            <img src="${item.image}">
             <div class="card-body">
                 <div class="title">${item.title}</div>
                 <div class="price">${item.price}</div>
                 <div class="discount">${item.discount}</div>
                 <a class="btn" href="${item.link}" target="_blank">Grab Deal</a>
             </div>
-        </div>
-    `).join("");
+        </div>`).join("");
 
     document.getElementById("pageNumber").innerText = `Page ${currentPage}`;
 }
 
+/* Pagination */
 function nextPage() { currentPage++; render(); }
 function prevPage() { if (currentPage > 1) currentPage--; render(); }
 
-let debounceTimer;
+/* Search + Filter */
 document.getElementById("searchInput").addEventListener("input", () => {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-        currentPage = 1;
-        render();
-    }, 300);
+    currentPage = 1;
+    render();
 });
 
-function buildMergedPanel() {
-    const left = document.querySelectorAll(".sidebar .pill");
-    const right = document.querySelectorAll(".rightbar .pill");
-    const merged = document.getElementById("mergedPanel");
+document.getElementById("categoryFilter").addEventListener("change", () => {
+    currentPage = 1;
+    render();
+});
 
-    merged.innerHTML = "";
-    [...left, ...right].forEach(p =>
-        merged.appendChild(p.cloneNode(true))
-    );
+let currentSlide = 0;
+let autoSlideInterval;
 
-    merged.style.display = "flex";
+async function loadFullWidthSlider() {
+    const url = "https://script.google.com/macros/s/AKfycbxrfAb4mxPttSX8YUtXqnamvH1d3H2s1SosRJtG_CU--0chR5eWCogTHFQRLVpl3c1Veg/exec";
+
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        const gallery = document.getElementById("sheetGallery");
+        gallery.innerHTML = "";
+
+        data.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "slide-item";
+
+            const a = document.createElement("a");
+            a.href = item.link;
+            a.target = "_blank";
+
+            const img = document.createElement("img");
+            img.src = item.image;
+
+            a.appendChild(img);
+            div.appendChild(a);
+            gallery.appendChild(div);
+        });
+
+        enableSlider(data.length);
+    } catch (error) {
+        console.error("Error loading slider:", error);
+    }
 }
 
-if (window.innerWidth <= 1024) {
-    buildMergedPanel();
+function enableSlider(totalSlides) {
+    const wrapper = document.querySelector(".slides-wrapper");
+
+    // Update slide function
+    function updateSlide() {
+        wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // Button click events
+    document.querySelector(".prev-btn").onclick = () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlide();
+        resetAutoSlide();
+    };
+
+    document.querySelector(".next-btn").onclick = () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlide();
+        resetAutoSlide();
+    };
+
+    // Auto-slide every 3 seconds
+    autoSlideInterval = setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlide();
+    }, 3000);
 }
+
+// Reset auto-slide on manual navigation
+function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        document.querySelector(".slides-wrapper").style.transform = `translateX(-${currentSlide * 100}%)`;
+    }, 3000);
+}
+
+loadFullWidthSlider();
+
 </script>
 
 </body>
