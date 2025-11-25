@@ -6,6 +6,19 @@
 <title>Today’s Best Offers</title>
 
 <style>
+
+/* Hide horizontal scrollbar */
+.category-list {
+    scrollbar-width: none;     /* Firefox */
+}
+
+.category-list::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari */
+}
+.category-list {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
     body {
         margin: 0;
         font-family: "Poppins", sans-serif;
@@ -13,11 +26,25 @@
 	overflow-x: hidden;
     }
 
+.header-search {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.header-search input {
+    padding: 10px 16px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    width: 200px;
+}
+
     header {
         width: auto;
         padding: 20px;
-        background: linear-gradient(90deg, black, #ee0979);
-        color: white;
+        background: linear-gradient(90deg, white, black	);
+        color: black;
         font-size: 28px;
         font-weight: 700;
         position: sticky;
@@ -191,6 +218,9 @@
     z-index: 2000;
 text-align: center;
 }
+.filters {
+    display: none !important;
+}
 
 .top-ticker {
     display: inline-block;
@@ -263,8 +293,13 @@ text-align: center;
 </head>
 
 <body>
+<header>
+    🔥 Today’s Best Offers
 
-<header>🔥 Today’s Best Offers</header>
+    <div class="header-search">
+        <input type="text" id="topSearch" placeholder="Search products...">
+    </div>
+</header>
 
 <div class="layout">
 
@@ -283,7 +318,6 @@ text-align: center;
          <center>Big Sale Live Now! | Amazon • Flipkart • Meesho • Myntra • Ajio • Croma • More Deals Updating Every Hour!</center>
     </div>
 </div>
-<br>
 <!-- ----------- FULL WIDTH SLIDER SECTION ----------- -->
 <div class="full-slider">
     <button class="nav-btn prev-btn">⟨</button>
@@ -292,7 +326,7 @@ text-align: center;
 
     <button class="nav-btn next-btn">⟩</button>
 </div>
-<br>
+
 
     <div id="loading">
         <div class="spinner"></div>
@@ -395,6 +429,14 @@ function prevPage() { if (currentPage > 1) currentPage--; render(); }
 
 /* Search + Filter */
 document.getElementById("searchInput").addEventListener("input", () => {
+    currentPage = 1;
+    render();
+});
+
+document.getElementById("topSearch").addEventListener("input", () => {
+    document.getElementById("searchInput").value = 
+        document.getElementById("topSearch").value;
+
     currentPage = 1;
     render();
 });
